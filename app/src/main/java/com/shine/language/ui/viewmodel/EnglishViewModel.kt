@@ -2,6 +2,9 @@ package com.shine.language.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.shine.language.domain.EnglishUseCase
 import com.shine.language.ui.intent.EnglishIntent
 import com.shine.language.ui.state.EnglishUiState
@@ -39,9 +42,11 @@ class EnglishViewModel : ViewModel() {
             "start".i()
             _state.value = EnglishUiState.Loading
             _state.value = try {
-                val englishList = englishUseCase.getEnglishList()
-                "englishList.size=${englishList.size}".i()
-                EnglishUiState.EnglishList(englishList)
+                val englishListPaging = englishUseCase.getEnglishList()
+                val englishListPagingData = Pager(PagingConfig(pageSize = 10)) {
+                    englishListPaging
+                }.flow.cachedIn(viewModelScope)
+                EnglishUiState.EnglishList(englishListPagingData)
             } catch (e: Exception) {
                 e.e()
                 EnglishUiState.Error(e.localizedMessage)

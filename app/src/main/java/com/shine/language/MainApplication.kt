@@ -18,6 +18,6 @@ class MainApplication : Application() {
     }
 
     companion object {
-        var instance: MainApplication? = null
+        lateinit var instance: MainApplication
     }
 }

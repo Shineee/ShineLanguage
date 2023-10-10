@@ -11,17 +11,11 @@ abstract class LanguageDatabase : RoomDatabase() {
     abstract fun getEnglishDao(): EnglishDao
 
     companion object {
-        private var db: LanguageDatabase? = null
-        fun getDatabase(): LanguageDatabase? {
-            MainApplication.instance?.applicationContext?.let {
-                if (db != null)
-                    return@let
-                db = Room.databaseBuilder(
-                    it,
-                    LanguageDatabase::class.java, "language.db"
-                ).build()
-            }
-            return db
+        fun getDatabase(): LanguageDatabase {
+            return Room.databaseBuilder(
+                MainApplication.instance.applicationContext,
+                LanguageDatabase::class.java, "language.db"
+            ).build()
         }
     }
 }
