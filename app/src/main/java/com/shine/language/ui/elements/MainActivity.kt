@@ -42,7 +42,6 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private val englishViewModel by viewModels<EnglishViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent()
@@ -121,8 +120,9 @@ class MainActivity : ComponentActivity() {
         val pagingItems = englishListPagingData.collectAsLazyPagingItems()
         LazyColumn(Modifier.fillMaxWidth()) {
             itemsIndexed(pagingItems) { _, it ->
-                val english = it ?: English()
-                WordRow(english)
+                if (it != null) {
+                    WordRow(it)
+                }
             }
         }
     }
@@ -137,13 +137,15 @@ class MainActivity : ComponentActivity() {
             var isVisibleAccent by rememberSaveable { mutableStateOf(false) }
 
             Column(modifier = Modifier.padding(start = 5.dp, end = 5.dp)) {
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
                 ) {
+                    val word = "${english.id}.${english.word}"
                     Text(
-                        text = english.word, fontWeight = FontWeight.Bold, modifier = Modifier
+                        text = word, fontWeight = FontWeight.Bold, modifier = Modifier
                             .padding(top = 0.dp)
                     )
                     Text(text = "音标", modifier = Modifier.clickable { isVisibleAccent = !isVisibleAccent })
@@ -156,6 +158,7 @@ class MainActivity : ComponentActivity() {
 
                 val explain = "${english.explain}"
                 Text(text = explain, modifier = Modifier.padding(top = 5.dp, bottom = 5.dp))
+
             }
         }
     }
@@ -164,7 +167,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun DefaultPreview() {
         ShineLanguageTheme {
-            val english = English()
+            val english = English(1)
             english.word = "a"
             english.britishAccent = "英[aaa]"
             english.americanAccent = "美[aaa]"

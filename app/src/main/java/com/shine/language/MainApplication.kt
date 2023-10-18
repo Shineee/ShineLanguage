@@ -1,15 +1,15 @@
 package com.shine.language
 
 import android.app.Application
-import com.shine.language.data.db.DBHelper
 import com.shine.language.util.log.i
+import com.tencent.mmkv.MMKV
 
 class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         "onCreate()".i()
         instance = this
-        DBHelper.init()
+        MMKV.initialize(this)
     }
 
     override fun onTerminate() {

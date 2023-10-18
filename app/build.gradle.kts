@@ -86,5 +86,6 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.room:room-paging:$room_version")
     implementation("androidx.paging:paging-compose:1.0.0-alpha18")
-
+    implementation("androidx.datastore:datastore-preferences-core:1.0.0")
+    implementation("com.tencent:mmkv:1.3.1")
 }

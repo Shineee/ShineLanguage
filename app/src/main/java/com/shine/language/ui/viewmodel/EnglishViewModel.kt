@@ -43,7 +43,7 @@ class EnglishViewModel : ViewModel() {
             _state.value = EnglishUiState.Loading
             _state.value = try {
                 val englishListPaging = englishUseCase.getEnglishList()
-                val englishListPagingData = Pager(PagingConfig(pageSize = 10)) {
+                val englishListPagingData = Pager(PagingConfig(pageSize = 20)) {
                     englishListPaging
                 }.flow.cachedIn(viewModelScope)
                 EnglishUiState.EnglishList(englishListPagingData)
