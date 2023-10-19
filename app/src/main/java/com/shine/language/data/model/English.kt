@@ -14,7 +14,7 @@ data class English(
     @ColumnInfo(name = "word") var word: String = "",
     @ColumnInfo(name = "british_accent") var britishAccent: String? = "",
     @ColumnInfo(name = "american_accent") var americanAccent: String? = "",
-    @ColumnInfo(name = "explain") var explain: String? = "",
+    @ColumnInfo(name = "paraphrase") var paraphrase: String? = "",
     @ColumnInfo(name = "british_audio") var britishAudio: String? = "",
     @ColumnInfo(name = "american_audio") var americanAudio: String? = ""
 )

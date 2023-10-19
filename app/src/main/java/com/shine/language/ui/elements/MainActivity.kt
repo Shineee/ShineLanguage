@@ -37,6 +37,7 @@ import com.shine.language.ui.intent.EnglishIntent
 import com.shine.language.ui.state.EnglishUiState
 import com.shine.language.ui.theme.ShineLanguageTheme
 import com.shine.language.ui.viewmodel.EnglishViewModel
+import com.shine.language.util.log.i
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -64,6 +65,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     is EnglishUiState.Loading -> {
+                        setContent()
                     }
 
                     is EnglishUiState.EnglishList -> {
@@ -156,7 +158,7 @@ class MainActivity : ComponentActivity() {
                     Text(text = accent, modifier = Modifier.padding(top = 5.dp))
                 }
 
-                val explain = "${english.explain}"
+                val explain = "${english.paraphrase}"
                 Text(text = explain, modifier = Modifier.padding(top = 5.dp, bottom = 5.dp))
 
             }
@@ -171,7 +173,7 @@ class MainActivity : ComponentActivity() {
             english.word = "a"
             english.britishAccent = "英[aaa]"
             english.americanAccent = "美[aaa]"
-            english.explain = "一个一个一个一个一个一个"
+            english.paraphrase = "一个一个一个一个一个一个"
             WordRow(english)
         }
     }
